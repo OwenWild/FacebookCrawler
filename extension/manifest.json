@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Marketplace Listing Shelf",
+  "version": "1.0.0",
+  "description": "Save Marketplace listings you browse into a searchable local shelf (search, filter, export).",
+  "permissions": ["storage"],
+  "host_permissions": ["https://www.facebook.com/*", "https://facebook.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Listing Shelf"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.facebook.com/marketplace/*",
+        "https://facebook.com/marketplace/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_ui": {
+    "page": "dashboard.html",
+    "open_in_tab": true
+  }
+}

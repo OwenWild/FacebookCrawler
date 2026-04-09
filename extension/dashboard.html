@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Listing Shelf</title>
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">
+        <h1>Listing Shelf</h1>
+        <p class="sub">
+          Saved from Facebook Marketplace as you browse. Search and filter here—data stays in this
+          browser profile.
+        </p>
+      </div>
+      <div class="stats">
+        <span class="pill" id="statTotal">0 listings</span>
+      </div>
+    </header>
+
+    <section class="toolbar">
+      <div class="field grow">
+        <label for="q">Search title, price, URL</label>
+        <input type="search" id="q" placeholder="e.g. desk, $50, carbon…" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="sort">Sort</label>
+        <select id="sort">
+          <option value="date-desc">Newest saved first</option>
+          <option value="date-asc">Oldest saved first</option>
+          <option value="title-asc">Title A–Z</option>
+          <option value="title-desc">Title Z–A</option>
+          <option value="price-asc">Price low → high</option>
+          <option value="price-desc">Price high → low</option>
+        </select>
+      </div>
+      <div class="field narrow">
+        <label for="minP">Min $</label>
+        <input type="text" id="minP" inputmode="decimal" placeholder="0" />
+      </div>
+      <div class="field narrow">
+        <label for="maxP">Max $</label>
+        <input type="text" id="maxP" inputmode="decimal" placeholder="∞" />
+      </div>
+      <div class="actions">
+        <button type="button" id="exportJson" class="btn secondary">Export JSON</button>
+        <button type="button" id="exportCsv" class="btn secondary">Export CSV</button>
+        <button type="button" id="clear" class="btn danger">Clear all</button>
+      </div>
+    </section>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="thumb-col"></th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Saved</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <p class="empty" id="empty"></p>
+    </div>
+
+    <script src="dashboard.js"></script>
+  </body>
+</html>
