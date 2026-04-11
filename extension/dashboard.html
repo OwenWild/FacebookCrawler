@@ -20,6 +20,45 @@
       </div>
     </header>
 
+    <section class="toolbar toolbar-tight ref-bar">
+      <div class="field grow">
+        <label for="refTown">Your town (for distance)</label>
+        <input
+          type="text"
+          id="refTown"
+          placeholder="e.g. Austin, TX"
+          autocomplete="postal-address locality"
+        />
+      </div>
+      <div class="field narrow">
+        <label for="distUnit">Units</label>
+        <select id="distUnit">
+          <option value="mi">Miles</option>
+          <option value="km">Kilometers</option>
+        </select>
+      </div>
+      <div class="field narrow">
+        <label>&nbsp;</label>
+        <button type="button" class="btn secondary" id="saveRef">Save</button>
+      </div>
+      <div class="field row-check">
+        <label class="inline"
+          ><input type="checkbox" id="hidePlaceholder" checked /> Hide $123 / $1234 + make
+          offer</label
+        >
+      </div>
+      <div class="field row-check">
+        <label class="inline"
+          ><input type="checkbox" id="pinGreat" checked /> Show great deals first when sorting by
+          deal</label
+        >
+      </div>
+      <div class="field narrow">
+        <label>&nbsp;</label>
+        <button type="button" class="btn" id="rescoreDeals">Re-run deal research</button>
+      </div>
+    </section>
+
     <section class="toolbar">
       <div class="field grow">
         <label for="q">Search title, price, URL</label>
@@ -28,6 +67,8 @@
       <div class="field">
         <label for="sort">Sort</label>
         <select id="sort">
+          <option value="deal-desc">Best deal score first</option>
+          <option value="dist-asc">Closest first</option>
           <option value="date-desc">Newest saved first</option>
           <option value="date-asc">Oldest saved first</option>
           <option value="title-asc">Title A–Z</option>
@@ -51,6 +92,19 @@
       </div>
     </section>
 
+    <section class="diag-panel">
+      <div class="diag-head">
+        <h2>Diagnostics</h2>
+        <button type="button" class="btn secondary btn-sm" id="refreshDiag">Refresh</button>
+      </div>
+      <p class="diag-hint">
+        Last capture attempt from the content script (anchors found, errors, sample hrefs). Enable
+        <strong>Debug</strong> in the extension popup for a HUD on Marketplace and
+        <code>console.log</code> lines prefixed with <code>[Listing Shelf]</code>.
+      </p>
+      <pre class="diag-json" id="diagJson">Loading…</pre>
+    </section>
+
     <div class="table-wrap">
       <table>
         <thead>
@@ -58,6 +112,9 @@
             <th class="thumb-col"></th>
             <th>Title</th>
             <th>Price</th>
+            <th>Location</th>
+            <th class="narrow-col">Dist</th>
+            <th class="deal-col">Deal</th>
             <th>Saved</th>
             <th></th>
           </tr>
@@ -67,6 +124,8 @@
       <p class="empty" id="empty"></p>
     </div>
 
+    <script src="geo.js"></script>
+    <script src="deal.js"></script>
     <script src="dashboard.js"></script>
   </body>
 </html>

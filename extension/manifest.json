@@ -1,10 +1,16 @@
 {
   "manifest_version": 3,
   "name": "Marketplace Listing Shelf",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Save Marketplace listings you browse into a searchable local shelf (search, filter, export).",
-  "permissions": ["storage"],
-  "host_permissions": ["https://www.facebook.com/*", "https://facebook.com/*"],
+  "permissions": ["storage", "tabs", "activeTab"],
+  "host_permissions": [
+    "https://www.facebook.com/*",
+    "https://facebook.com/*",
+    "https://m.facebook.com/*",
+    "https://web.facebook.com/*",
+    "https://nominatim.openstreetmap.org/*"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_title": "Listing Shelf"
@@ -15,8 +21,10 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.facebook.com/marketplace/*",
-        "https://facebook.com/marketplace/*"
+        "https://www.facebook.com/*",
+        "https://facebook.com/*",
+        "https://m.facebook.com/*",
+        "https://web.facebook.com/*"
       ],
       "js": ["content.js"],
       "run_at": "document_idle"

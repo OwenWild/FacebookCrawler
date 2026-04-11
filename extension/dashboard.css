@@ -62,6 +62,42 @@ body {
   background: #12151a;
 }
 
+.toolbar-tight {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.ref-bar {
+  grid-template-columns: 1fr 120px 100px;
+  align-items: end;
+}
+
+.ref-bar .row-check {
+  grid-column: 1 / -1;
+}
+
+.ref-bar .row-check label.inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #bdc1c6;
+  cursor: pointer;
+}
+
+.ref-bar .row-check input {
+  accent-color: #6c9eff;
+}
+
+@media (min-width: 900px) {
+  .ref-bar {
+    grid-template-columns: 1fr 100px 90px minmax(220px, 1fr) minmax(220px, 1fr) 160px;
+  }
+  .ref-bar .row-check {
+    grid-column: auto;
+  }
+}
+
 @media (max-width: 900px) {
   .toolbar {
     grid-template-columns: 1fr 1fr;
@@ -179,6 +215,44 @@ tbody tr:hover {
   width: 72px;
 }
 
+.narrow-col {
+  width: 72px;
+}
+
+.deal-col {
+  min-width: 108px;
+}
+
+.deal-pill {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #30343a;
+  color: #e8eaed;
+}
+
+.deal-pill.strong {
+  background: #1e3a2f;
+  color: #9be7c4;
+  border: 1px solid #2d6a4f;
+}
+
+.deal-pill.weak {
+  background: #3a2a23;
+  color: #f4c7b8;
+}
+
+.deal-reason {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: #80868b;
+  font-weight: 400;
+  max-width: 200px;
+}
+
 .thumb {
   width: 56px;
   height: 56px;
@@ -232,4 +306,53 @@ tbody tr:hover {
 
 .empty.show {
   display: block;
+}
+
+.diag-panel {
+  margin: 0 28px 20px;
+  padding: 16px 18px;
+  border-radius: 10px;
+  background: #12151a;
+  border: 1px solid #2a2f36;
+}
+
+.diag-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.diag-head h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.diag-hint {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #9aa0a6;
+}
+
+.diag-json {
+  margin: 0;
+  padding: 12px 14px;
+  max-height: 280px;
+  overflow: auto;
+  font-size: 12px;
+  line-height: 1.4;
+  background: #0e1013;
+  border: 1px solid #2a2f36;
+  border-radius: 8px;
+  color: #bdc1c6;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
