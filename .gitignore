@@ -1,6 +1,13 @@
 ShelfExtensionId.txt
 ShelfChromeProfile.txt
 
+# Dependencies (thousands of files — never commit)
+node_modules/
+
+# Local secrets and runtime data (never commit)
 server/data/
 server/config.json
 data/
+config.json
+.env
+.env.*

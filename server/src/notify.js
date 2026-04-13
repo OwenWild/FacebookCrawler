@@ -12,10 +12,19 @@ function buildPayload(listing, deal, meta) {
 
 export async function notifyListing(cfg, listing, deal, meta = {}) {
   const payload = buildPayload(listing, deal, meta);
+  const listed =
+    listing.listedFor?.trim() ||
+    (listing.listedAgeHours != null && Number.isFinite(listing.listedAgeHours)
+      ? `~${Math.round(listing.listedAgeHours)}h ago (est.)`
+      : "");
   const text = [
     `Score ${deal.score} (${deal.label}): ${listing.title}`,
     listing.price || "",
     listing.location || "",
+    listed ? `Listed: ${listed}` : "",
+    listing.cashOnly === true
+      ? "Cash only / no trades: Yes"
+      : "Cash only / no trades: No",
     listing.url,
     (deal.reasons || []).join(" · "),
   ]

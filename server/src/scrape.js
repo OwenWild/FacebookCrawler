@@ -1,10 +1,11 @@
 import { setTimeout as sleep } from "timers/promises";
+import { enrichListing } from "./listingMeta.js";
 
 /**
  * Extract listing cards from a loaded Marketplace page (same idea as the Chrome extension).
  */
 export async function scrapeVisibleListings(page) {
-  return page.evaluate(() => {
+  const items = await page.evaluate(() => {
     const ITEM = /\/marketplace\/item\/(\d{8,22})/i;
     const PRICE =
       /(\$|€|£|CA\$|A\$)\s*[\d,]+(?:\.\d{2})?|[\d,]+(?:\.\d{2})?\s*(?:USD|EUR|GBP|CAD|AUD)\b|Free\b/i;
@@ -104,13 +105,14 @@ export async function scrapeVisibleListings(page) {
         title: title.slice(0, 300),
         price: price || null,
         location: loc,
-        snippet: blob.slice(0, 1200),
+        snippet: blob.slice(0, 2000),
         sourcePage: window.location.href.split("?")[0],
       });
     });
 
     return out;
   });
+  return items.map(enrichListing);
 }
 
 export async function scrapeCategory(page, url, opts) {

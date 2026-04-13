@@ -36,11 +36,20 @@ function listingEmbed(line) {
     distanceMi != null && Number.isFinite(distanceMi)
       ? `${distanceMi.toFixed(1)} mi`
       : "—";
+  const listed =
+    listing.listedFor?.trim() ||
+    (listing.listedAgeHours != null && Number.isFinite(listing.listedAgeHours)
+      ? "~" + Math.round(listing.listedAgeHours) + "h ago (est.)"
+      : null);
+  const cash =
+    listing.cashOnly === true ? "Yes" : "No";
   const desc = truncate(
     [
       listing.price || "—",
       listing.location || "—",
       `Distance: ${dist}`,
+      `Listed: ${listed || "—"}`,
+      `Cash only / no trades: ${cash}`,
       (deal.reasons || []).length ? deal.reasons.join(" · ") : "",
     ]
       .filter(Boolean)
