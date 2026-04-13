@@ -1,5 +1,13 @@
 # Headless Marketplace sweeper (Ubuntu / server)
 
+**Docker** (from the **repo root**, where `docker-compose.yml` and `config.json` live):
+
+```bash
+docker compose up -d --build   # start (rebuild if code/Dockerfile changed)
+docker compose down             # stop
+docker compose logs -f --tail=50
+```
+
 Runs **priority category URLs first** (vehicles, bicycles, electronics, computers/macbook searches, etc.), then **remaining** categories if there is time left in the cycle. It uses **Playwright Chromium** with a **saved Facebook session** (storage state), scrolls each page to load tiles, extracts listings, scores them with the same heuristics as the browser extension, optionally filters by **distance** from `refTown`, and **notifies** you (webhook and/or email) when a listing crosses `dealScoreMin`.
 
 **Important**

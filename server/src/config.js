@@ -31,6 +31,14 @@ export function loadConfig() {
     );
   }
 
+  const st = fs.statSync(configPath);
+  if (st.isDirectory()) {
+    throw new Error(
+      `config path is a directory, not a file: ${configPath}\n` +
+        `Remove the empty folder, then save your settings as a single file named config.json (Docker: host path must be a file, not a directory).`
+    );
+  }
+
   const raw = fs.readFileSync(configPath, "utf8");
   const cfg = JSON.parse(raw);
   if (!cfg.categories?.priority?.length) {
