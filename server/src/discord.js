@@ -4,7 +4,8 @@
  */
 
 const MAX_EMBEDS = 10;
-const MAX_DESC = 1800;
+/** Discord embed description hard limit is 4096 chars. */
+const MAX_EMBED_DESC = 4096;
 
 function truncate(s, n) {
   if (!s) return "";
@@ -43,19 +44,25 @@ function listingEmbed(line) {
       : null);
   const cash =
     listing.cashOnly === true ? "Yes" : "No";
-  const desc = truncate(
-    [
-      listing.price || "—",
-      listing.location || "—",
-      `Distance: ${dist}`,
-      `Listed: ${listed || "—"}`,
-      `Cash only / no trades: ${cash}`,
-      (deal.reasons || []).length ? deal.reasons.join(" · ") : "",
-    ]
-      .filter(Boolean)
-      .join("\n"),
-    MAX_DESC
-  );
+  const metaLines = [
+    listing.price || "—",
+    listing.location || "—",
+    `Distance: ${dist}`,
+    `Listed: ${listed || "—"}`,
+    `Cash only / no trades: ${cash}`,
+  ];
+  const reasonsLine = (deal.reasons || []).length
+    ? `Heuristics: ${deal.reasons.join(" · ")}`
+    : "";
+  const rawSnippet = (listing.snippet || "").trim() || "—";
+  const parts = [
+    metaLines.join("\n"),
+    "",
+    "**Description** (from card)",
+    rawSnippet,
+  ];
+  if (reasonsLine) parts.push("", reasonsLine);
+  const desc = truncate(parts.join("\n"), MAX_EMBED_DESC);
   return {
     title: truncate(listing.title, 250),
     url: listing.url,
@@ -84,7 +91,7 @@ export async function postDiscordDigest(webhookUrl, payload, options = {}) {
   }
 
   const header = {
-    content: `**${payload.title}** · ${lines.length} new (best first)`,
+    content: `**${payload.title}** · ${lines.length} new (sorted by score, best first)`,
   };
 
   for (let i = 0; i < lines.length; i += MAX_EMBEDS) {

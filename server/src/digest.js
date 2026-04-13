@@ -41,13 +41,15 @@ export async function runDigestOnce(cfg) {
 
   const hidePh = cfg.hidePlaceholderMakeOffer !== false;
   const minDigest = cfg.digestMinDealScore ?? 0;
+  /** When true, every new listing is included (still sorted by score); ignores digestMinDealScore. */
+  const includeAll = cfg.digestIncludeAll === true;
 
   const lines = [];
   for (const listing of newListings) {
     if (hidePh && isPlaceholderMakeOffer(listing)) continue;
 
     const deal = scoreDeal(listing);
-    if (deal.score < minDigest) continue;
+    if (!includeAll && deal.score < minDigest) continue;
 
     if (needRadius) {
       if (!listing.location?.trim()) continue;

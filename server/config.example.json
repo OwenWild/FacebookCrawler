@@ -7,6 +7,7 @@
   "pageGotoTimeoutMs": 120000,
   "discordWebhookUrl": "",
   "digestIntervalMinutes": 30,
+  "digestIncludeAll": true,
   "digestMinDealScore": 0,
   "digestPostWhenEmpty": false,
   "cycleIntervalMinutes": 25,
