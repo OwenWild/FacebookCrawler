@@ -92,10 +92,12 @@ async function runCategoryList(context, cfg, list, deadlineMs) {
  * Scrape all configured categories and return de-duplicated listings (does not update seen state).
  */
 export async function sweepMarketplace(cfg) {
-  const statePath = cfg.storageStatePath;
+  const statePath = cfg._storageStatePath || cfg.storageStatePath;
   if (!statePath || !fs.existsSync(statePath)) {
     throw new Error(
-      `Missing storage state at ${statePath}. Log in once on a desktop, export Playwright storage, or run: npx playwright codegen facebook.com and save storage.`
+      `Missing storage state at ${statePath}.\n` +
+        `On this PC run: cd server && npm run save-session\n` +
+        `Then copy that file to the same path on your server (next to config.json under data/).`
     );
   }
 

@@ -1,5 +1,5 @@
-# Pin to the same Playwright major/minor as server/package.json (playwright package).
-FROM mcr.microsoft.com/playwright:v1.49.0-jammy
+# Must match server/package-lock.json playwright version (browsers live in this image).
+FROM mcr.microsoft.com/playwright:v1.59.1-jammy
 
 WORKDIR /app/server
 

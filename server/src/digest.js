@@ -29,18 +29,6 @@ export async function runDigestOnce(cfg) {
     );
   }
 
-  if (seedMode) {
-    for (const l of unique) {
-      seen.add(l.id);
-    }
-    saveGeoCache(cfg, geoCache);
-    saveSeen(cfg, seen);
-    console.log(
-      `[digest] Seed: stored ${unique.length} listing IDs (no Discord yet). Run again to receive digests.`
-    );
-    return;
-  }
-
   const newListings = unique.filter((l) => !seen.has(l.id));
 
   if (needRadius && !refPt) {
@@ -82,15 +70,20 @@ export async function runDigestOnce(cfg) {
     console.warn("[digest] discordWebhookUrl is empty — nothing posted.");
     console.log(JSON.stringify(lines.slice(0, 20), null, 2));
   } else {
+    const title = seedMode
+      ? `Initial snapshot (first run) · ${new Date().toISOString()}`
+      : `New listings · ${new Date().toISOString()}`;
     await postDiscordDigest(
       hook,
       {
-        title: `New listings · ${new Date().toISOString()}`,
+        title,
         lines,
       },
       { postWhenEmpty: !!cfg.digestPostWhenEmpty }
     );
-    console.log(`[digest] Posted ${lines.length} listing(s) to Discord.`);
+    console.log(
+      `[digest] Posted ${lines.length} listing(s) to Discord${seedMode ? " (first run)" : ""}.`
+    );
   }
 
   for (const l of newListings) {

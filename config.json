@@ -1,0 +1,62 @@
+{
+    "$comment": "Copy to config.json. For newest-first, paste each URL from your browser after choosing Date listed: Newest first — Facebook changes query params often.",
+    "storageStatePath": "./data/storage-state.json",
+    "headless": true,
+    "scrollRounds": 10,
+    "scrollPauseMs": 1400,
+    "pageGotoTimeoutMs": 120000,
+    "discordWebhookUrl": "https://discord.com/api/webhooks/1492327628617810000/9F5OFYA-fC4jbcoJY87u6gDsW90rEO2pk5tgAb1PG9spibum0W7Mw1sVCAMORYU9AqRP",
+    "digestIntervalMinutes": 30,
+    "digestMinDealScore": 0,
+    "digestPostWhenEmpty": true,
+    "cycleIntervalMinutes": 25,
+    "priorityTimeBudgetMs": 900000,
+    "maxCycleDurationMs": 2700000,
+    "perCategoryMaxMs": 180000,
+    "dealScoreMin": 68,
+    "maxSeenIds": 80000,
+    "refTown": "Potsdam, NY",
+    "maxDistanceMiles": 50,
+    "hidePlaceholderMakeOffer": true,
+    "notifyWebhookUrl": "",
+    "notifyWebhookHeaders": {},
+    "notifyEmail": {
+      "enabled": false,
+      "host": "smtp.example.com",
+      "port": 587,
+      "secure": false,
+      "user": "",
+      "passEnv": "SMTP_PASS",
+      "from": "shelf@example.com",
+      "to": "you@example.com"
+    },
+    "categories": {
+      "priority": [
+        {
+          "name": "vehicles",
+          "url": "https://www.facebook.com/marketplace/category/vehicles/"
+        },
+        {
+          "name": "bicycles",
+          "url": "https://www.facebook.com/marketplace/category/sporting-goods/"
+        },
+        {
+          "name": "electronics",
+          "url": "https://www.facebook.com/marketplace/category/electronics/"
+        },
+        {
+          "name": "computers_search",
+          "url": "https://www.facebook.com/marketplace/search?query=computer"
+        },
+        {
+          "name": "macbooks",
+          "url": "https://www.facebook.com/marketplace/search?query=macbook"
+        }
+      ],
+      "remainder": [
+        { "name": "furniture", "url": "https://www.facebook.com/marketplace/category/furniture/" },
+        { "name": "tools", "url": "https://www.facebook.com/marketplace/category/tools/" }
+      ]
+    }
+  }
+  

@@ -9,10 +9,11 @@
     "once": "node src/index.js --once",
     "discord": "node src/digest-entry.js",
     "discord-once": "node src/digest-entry.js --once",
+    "save-session": "node scripts/save-state.mjs",
     "install-browser": "playwright install chromium"
   },
   "dependencies": {
     "nodemailer": "^6.9.16",
-    "playwright": "^1.49.0"
+    "playwright": "1.59.1"
   }
 }

@@ -6,7 +6,8 @@ Runs **priority category URLs first** (vehicles, bicycles, electronics, computer
 
 - Automating Facebook may violate Meta’s terms. Use at your own risk; prefer official APIs where they exist.
 - **“Newest first”** is not enforced in code (Facebook changes URLs often). For each category, open Marketplace in a normal browser, set **Date listed: Newest first**, copy the **full URL** from the address bar into `config.json`. Do that for search URLs too (`macbook`, `computer`, etc.).
-- First run uses **seed mode**: all scraped IDs are stored in `data/seen-ids.json` and **no notifications** are sent, so you don’t get spammed with the whole feed. The next cycles only notify on **new** IDs.
+- **`npm start`** (per-listing webhook/email): first run **seeds** `seen-ids.json` and sends **no** per-item notifications. Later runs only notify on **new** IDs.
+- **`npm run discord`**: first run **posts that initial batch to Discord** (title starts with “Initial snapshot”), then tracks IDs so later runs only send **new** listings.
 
 ## Quick start
 
@@ -21,14 +22,22 @@ npm run install-browser
 
 ### Create `storage-state.json` (logged-in session)
 
-On any machine with a GUI (your laptop is fine):
+On a **Windows/Mac machine with a normal browser** (your laptop):
 
 ```bash
 cd server
-node scripts/save-state.mjs
+npm run save-session
 ```
 
-Log in to Facebook in the window, complete 2FA if needed, then press **Enter** in the terminal. Copy `data/storage-state.json` to the server (path must match `storageStatePath` in `config.json`).
+A Chromium window opens → log into Facebook / Marketplace (2FA if needed) → when it works, **press Enter** in the terminal. The JSON path is printed; it matches `storageStatePath` in your `config.json` (paths are resolved **relative to the config file**, e.g. repo `config.json` → `data/storage-state.json` next to it).
+
+**Copy to Ubuntu:** copy that single file to the **same path** on the server (same folder layout as this repo), e.g.:
+
+```bash
+scp data/storage-state.json user@your-server:~/FacebookCrawler/data/storage-state.json
+```
+
+Then on the server, run commands from `server/` with the same `config.json` (or set `MARKETPLACE_CONFIG_PATH` to the full path of `config.json`).
 
 ### Run
 
@@ -123,7 +132,7 @@ One manual test:
 npm run discord-once
 ```
 
-**First run** only seeds IDs into `data/seen-ids.json` (no Discord spam). **Second run onward** posts new matches.
+The **first run** (empty `seen-ids.json`) posts an **initial snapshot** to Discord (same filters as later runs), then records IDs so the next run only sends **new** listings since then.
 
 ### 4. Leave it running
 
