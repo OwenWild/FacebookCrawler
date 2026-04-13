@@ -1,0 +1,12 @@
+services:
+  sweeper:
+    build: .
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+    volumes:
+      # Config at repo root (paths in config.json are relative to this file)
+      - ./config.json:/app/config.json:ro
+      - ./data:/app/data
+    # Playwright/Chromium in containers needs extra shared memory
+    shm_size: "1gb"
