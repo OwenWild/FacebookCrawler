@@ -7,12 +7,15 @@
   "scripts": {
     "start": "node src/index.js",
     "once": "node src/index.js --once",
-    "discord": "node src/digest-entry.js",
+    "discord": "node src/discord-combined-entry.js",
+    "discord-digest-only": "node src/digest-entry.js",
     "discord-once": "node src/digest-entry.js --once",
+    "register-discord-commands": "node scripts/register-discord-commands.mjs",
     "save-session": "node scripts/save-state.mjs",
     "install-browser": "playwright install chromium"
   },
   "dependencies": {
+    "discord-interactions": "^4.4.0",
     "nodemailer": "^6.9.16",
     "playwright": "1.59.1"
   }
